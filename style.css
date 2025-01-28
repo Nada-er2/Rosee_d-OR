@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Moderustic:wght@600&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Moderustic:wght@600&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Moderustic:wght@600&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@100..900&family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Moderustic:wght@600&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:wght@100..900&family=Slabo+27px&display=swap');
+*{
+    margin: 0;
+}
+
+nav{
+    background-color: #f8d7e3; 
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap; 
+    width: 100%;
+    height: 50px;
+    display: flex;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+nav p {
+    margin: 0;
+    color: #5c3a3a;
+    padding: 10px 0 0 20px; 
+    display: inline-block;
+    white-space: nowrap;
+    animation: move-words 10s linear infinite;   
+}
+
+@keyframes move-words {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+nav::after {
+    content: attr(data-repeat);
+    position: absolute;
+    left: 100%;
+    animation: move-words 10s linear infinite;
+}
+
+.photo-background{
+    background-image: url('images/background-image/AdobeStock_841361614_Preview.jpeg');
+    width: 100%;
+    background-size: cover;
+    height: 600px;
+    filter: brightness(0.8) contrast(1.2)
+}
+.photo-background h1{
+     padding: 190px 0px 50px 10%;
+     font-size: 60px;
+     font-family:Garamond, serif;
+     line-height:1em;
+     color:#E195AB;
+     font-weight:bold;
+     font-size:94px;
+     text-shadow:0px 0px 0 rgb(167,130,10),-1px 1px 0 rgb(138,101,-19),-2px 2px 0 rgb(108,71,-49),-3px 3px 0 rgb(79,42,-78), -4px 4px 0 rgb(50,13,-107),-5px 5px 4px rgba(0,0,0,0.55),-5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+}
+@keyframes slidein {
+    from {
+      margin-top: 100%;
+      width: 300%;
+    }
+  
+    to {
+      margin-top: 0%;
+      width: 100%;
+    }
+  }
+.photo-background .description {
+    font-size: 20px; 
+    color: #6d4c41; 
+    margin-top: 0; 
+    max-width: 700px;
+    line-height: 1.8; 
+    text-align: center; 
+    text-transform: uppercase;
+    margin-left:23px;
+}
+
+header{
+    background: linear-gradient(18deg, #fce4ec, #f8efe9); /* Dégradé rose clair et beige */
+    color: #4a2c2a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+}
+.liste_header {
+    list-style: none;
+    display: flex;
+    text-align: center;
+}
+.liste_header li{
+    padding-left: 69px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    margin-left: 50px;
+
+}
+.liste_header li a{
+    color: #b73266;
+    text-decoration: none;
+    font-size: 17px;
+}
+.liste_header li a:hover{
+    color: #d4a017;
+    transition: color 0.3s;
+}
+.main{
+    display: flex;
+    margin-top: 2%;
+    margin-left: 15%;
+}
+.icon{
+    margin-left: auto;
+    display: flex;
+}
+.icon p a{
+    text-decoration: none;
+    font-size: 17px;
+    color: #1E0101;
+}
+section h2{
+    margin-top: 2%;
+    margin-left: 15%;
+    font-size: 40px;
+    font-family: "Playfair Display, serif";
+}
+.section{
+    margin-top: 2%;
+    margin-left: 8%;
+    animation-duration: 3s;
+    animation-name: slidein;
+}
+
+section button{
+    border:2px solid #d4af37;
+    background: linear-gradient(18deg, #fce4ec, #f8efe9);
+    padding: 15px;
+    text-align: center;
+    margin-left: 44%;
+    margin-top: 17px;
+    width: 150px;
+}
+button a{
+    color: #b73266;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.photodiv1,
+.photodiv2,
+.photodiv3,
+.photodiv4 {
+    width: 250px;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: border-radius 0.4s ease, transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.photodiv1 {
+    background-image: url('images/pack/Coffret Sauvage 30ML x 3.webp');
+    border-radius: 61% 39% 64% 36% / 24% 45% 55% 76%;
+}
+.photodiv1:hover {
+    border-radius: 70% 30% 50% 50% / 50% 60% 40% 50%; 
+    transform: scale(1.1); 
+}
+
+.photodiv2 {
+    background-image: url('images/pack/COFFRET Dior Gucci Bloom x 3 (120ML).webp');
+    border-radius: 30% 70% 70% 30% / 60% 30% 70% 40%;
+}
+.photodiv2:hover {
+    border-radius: 40% 60% 40% 60% / 30% 70% 30% 70%; 
+    transform: scale(1.1);
+}
+
+.photodiv3 {
+    background-image: url('images/pack/COFFRET DlOR 30ML x 3.webp');
+    border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
+}
+.photodiv3:hover {
+    border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%; 
+    transform: scale(1.1);
+}
+
+.photodiv4 {
+    background-image: url('images/pack/CHANEL BLEU DE CHANEL 3IN1 SET (330ML).jpg');
+    border-radius: 80% 20% 60% 40% / 40% 50% 60% 30%;
+}
+.photodiv4:hover {
+    border-radius: 20% 80% 40% 60% / 60% 30% 50% 40%; 
+    transform: scale(1.1);
+}
+
+.sous-section {
+    display: flex;
+}
+
+.product {
+    width: 180px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 60px;
+}
+
+.product a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 180px;
+}
+
+.product img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+  /* Image originale */
+.product img:first-child {
+    opacity: 1;
+    z-index: 1;
+}
+
+  /* Image sur le défilement*/
+.product img:last-child {
+    opacity: 0;
+    z-index: 2;
+    transform: scale(1.02); /* Zoom d'image simple lors du défilement */
+}
+
+.product a:hover img:first-child {
+    opacity: 0;
+}
+
+.product a:hover img:last-child {
+    opacity: 1;
+    transform: scale(1); /* Revenir à la taille normale */
+}
+
+.product p {
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #1E0101;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.price .old-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+footer {
+    background: linear-gradient(18deg, #fce4ec, #f8efe9);
+    color: black;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+    margin-top:14px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    width: 30%;
+}
+
+.footer-section h3 {
+    color: #b73266;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-icon {
+    display: inline-block;
+    margin-right: 15px;
+    color: #b73266;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.social-icon:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}

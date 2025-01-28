@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff; /* White text color for contrast */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1E0101; /* Dore color */
+            margin-top: 20px;
+        }
+
+        #cart {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            color: #1E0101;
+            border-radius: 10px;
+            border: 2px solid #1E0101; /* Dore border */
+        }
+
+        .cart-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        p {
+            margin: 0;
+        }
+
+         button {
+            background-color: #D4AF37; /* Dore button */
+            color: #1E0101; /* Bordo text */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+         button:hover {
+            background-color: #B38A2A; /* Darker dore on hover */
+        }
+
+        .total-price {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #D4AF37; /* Dore color */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <ul class="liste_header">
+            <!-- <a href="Page_Home.php"><img src="images/freepik-gradient-linear-leaves-perfume-logo-202501072232411U9E.png" alt="Logo" style="width: 100px; height: 100px; padding-top:25px ;"></a> -->
+            <li><a href="Page_Home.php">HOME</a></li>
+            <li><a href="Page_Femme.php">PARFUM FEMME</a></li>
+            <li><a href="Page_Homme.php">PARFUM HOMME</a></li>
+            <li><a href="Page_Pack.php">COFFRET & PACK</a></li> 
+            <li><a href="favorites.php"><img src="images/icon/coeur.png" alt="coeur"></a></li>
+            <li><a href="cart.html"><img src="images/icon/panier-dachat-simple.png" alt="panier"></a></li>
+        </ul>
+    </header>
+    <h1>Votre Panier</h1>
+    <div id="cart">
+        <p>Votre panier est vide.</p>
+    </div> <!-- Section pour le panier -->
+
+    <form id="orderForm" action="order_form.php" method="POST" style="display: none;">
+        <input type="hidden" name="cartData" id="cartData"> <!-- Stocke les données du panier -->
+    </form>
+
+    <script>
+        // Afficher les produits du panier
+        function displayCart() {
+            const cartContainer = document.getElementById("cart");
+            const cart = JSON.parse(localStorage.getItem("cart")) || []; // Récupérer le panier depuis localStorage
+
+            cartContainer.innerHTML = ""; // Réinitialiser l'affichage
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = "<p>Votre panier est vide.</p>";
+                return;
+            }
+
+            let totalPrice = 0; // Calculer le total
+
+            cart.forEach(product => {
+                totalPrice += product.quantity * parseFloat(product.newPrice);
+                const cartItemHTML = `
+                    <div class="cart-item">
+                        <p>${product.name} - ${product.quantity} x ${product.newPrice}</p>
+                        <button onclick="updateQuantity(${product.id}, 1)">+</button>
+                        <button onclick="updateQuantity(${product.id}, -1)">-</button>
+                    </div>
+                `;
+                cartContainer.innerHTML += cartItemHTML;
+            });
+
+            cartContainer.innerHTML += `<h3>Total: ${totalPrice.toFixed(2)} Dh</h3>`;
+            cartContainer.innerHTML += `<button onclick="confirmOrder()">Confirmer la commande</button>`;
+        }
+
+        // Mettre à jour la quantité d'un produit
+        function updateQuantity(productId, change) {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const product = cart.find(p => p.id === productId);
+
+            if (product) {
+                product.quantity += change; // Modifier la quantité
+                if (product.quantity <= 0) {
+                    // Supprimer le produit si la quantité est 0
+                    const index = cart.indexOf(product);
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem("cart", JSON.stringify(cart)); // Sauvegarder les changements
+                displayCart(); // Mettre à jour l'affichage du panier
+            }
+        }
+
+        // Confirmer la commande
+        function confirmOrder() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
+
+            // Envoyer les données du panier via le formulaire
+            const cartDataInput = document.getElementById("cartData");
+            cartDataInput.value = JSON.stringify(cart); // Convertir le panier en JSON
+            document.getElementById("orderForm").submit(); // Soumettre le formulaire
+        }
+
+        // Afficher le panier au chargement de la page
+        displayCart();
+    </script>
+</body>
+</html>
