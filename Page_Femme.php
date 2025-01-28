@@ -187,6 +187,7 @@
     </style>
 </head>
 <body>
+
     <nav>
         <p>LIVRAISON GRATUITE PARTOUT AU MAROC || 2 Achetes = 3eme Offert a votre choix</p>
         <p>LIVRAISON GRATUITE PARTOUT AU MAROC || 2 Achetes = 3eme Offert a votre choix</p>
@@ -355,5 +356,8 @@
         displayProducts();
     </script>
     <script src="scriptrecherche.js"></script>
+    <?php
+include('page_connexion.php');
+?>
 </body>
 </html>

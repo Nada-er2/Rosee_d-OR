@@ -339,5 +339,8 @@
         displayProducts();
 </script>
     <script src="scriptrecherche.js"></script>
+    <?php
+include('page_connexion.php');
+?>
 </body>
 </html>

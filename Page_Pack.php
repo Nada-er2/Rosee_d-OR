@@ -273,5 +273,8 @@
         // Afficher les produits au chargement de la page
         displayProducts();
     </script>
+    <?php
+include('page_connexion.php');
+?>
 </body>
 </html>
