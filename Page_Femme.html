@@ -6,38 +6,40 @@
     <link rel="stylesheet" href="style.css">
     <title>Liste de Parfums</title>
     <style>
-        /* Styles généraux */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
+
         h1 {
             margin-bottom: 20px;
         }
+
         .parfum-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            text-align: center;
-            cursor: pointer;
-            animation-duration: 1s;
-            animation-name: slidein;
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           gap: 20px;
+           text-align: center;
+           cursor: pointer;
+           animation-duration: 1s;
+           animation-name: slidein;
         }
         @keyframes slidein {
-            from {
-              margin-top: 100%;
-              width: 300%;
-            }
-            to {
-              margin-top: 0%;
-              width: 100%;
-            }
+          from {
+            margin-top: 100%;
+            width: 300%;
+          }
+          to {
+            margin-top: 0%;
+            width: 100%;
+          }
         }
         .parfum-item {
             border-radius: 8px;
@@ -129,22 +131,24 @@
             background-color: white; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
             transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: scale(0.95);
-            opacity: 0;
+            transform: scale(0.95); 
+            opacity: 0; 
         }
         #searchInput.show {
             transform: scale(1); /* Taille normale */
             opacity: 1; /* Visible */
         }
+
         .product-buttons {
             position: absolute;
             top: 10px;
             right: 10px;
             display: flex;
-            flex-direction: column;
-            gap: 10px; 
+            flex-direction: column; 
+            gap: 10px; /* Ajoute un espace entre les boutons */
             z-index: 10;
         }
+        /* Boutons (Favoris et Panier) */
         .product-buttons button {
             background-color: #1E0101;
             border: none;
@@ -155,24 +159,35 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: background-color 0.3s ease, filter 0.3s ease;
+            transition: background-color 0.3s ease;
+   
         }
+        /* Icônes dans les boutons */
         .product-buttons button img {
             width: 20px;
             height: 20px;
-            filter: invert(72%) sepia(55%) saturate(3000%) hue-rotate(12deg) brightness(90%) contrast(88%); /* Icône dorée */
-            transition: filter 0.3s ease;
+            filter: invert(1); 
         }
+        /* Effet au survol des boutons */
         .product-buttons button:hover {
-            background-color: #d4af37; /* Fond doré au survol */
+            background-color: #d4af37; /* Couleur dorée */
         }
-        .product-buttons button:hover img {
-            content: url('images/icon/coeur apr.png'); /* Remplace l'icône par une autre */
-            filter: none; /* Supprime les filtres d'effet de couleur */
+        /* Conteneur produit (évite le chevauchement des boutons sur l'image) */
+        .parfum-item {
+            position: relative;
+            overflow: hidden;
+            padding: 10px;
+        }
+       /* Pour l'image par défaut */
+        .default-image {
+            display: block;
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
+
     <nav>
         <p>LIVRAISON GRATUITE PARTOUT AU MAROC || 2 Achetes = 3eme Offert a votre choix</p>
         <p>LIVRAISON GRATUITE PARTOUT AU MAROC || 2 Achetes = 3eme Offert a votre choix</p>
@@ -184,21 +199,21 @@
         <ul class="liste_header">
             <!-- <a href="Page_Home.php"><img src="images/freepik-gradient-linear-leaves-perfume-logo-202501072232411U9E.png" alt="Logo" style="width: 100px; height: 100px; padding-top:25px ;"></a> -->
             <li><a href="index.html">HOME</a></li>
-            <li><a href="Page_Femme.php">PARFUM FEMME</a></li>
-            <li><a href="Page_Homme.php">PARFUM HOMME</a></li>
-            <li><a href="Page_Pack.php">COFFRET & PACK</a></li>
+            <li><a href="Page_Femme.html">PARFUM FEMME</a></li>
+            <li><a href="Page_Homme.html">PARFUM HOMME</a></li>
+            <li><a href="Page_Pack.html">COFFRET & PACK</a></li>
             <li id="searchContainer">
                 <a href="#" id="searchIcon">
                     <img src="images/icon/chercher.png" alt="chercher" style="cursor: pointer;">
                 </a>
                 <input type="text" id="searchInput" placeholder="Rechercher un produit..." onkeyup="searchProducts()">
-            </li>  
+            </li>            
             <li><a href="favorites.php"><img src="images/icon/coeur.png" alt="coeur"></a></li>
             <li><a href="cart.html"><img src="images/icon/panier-dachat-simple.png" alt="panier"></a></li>
         </ul>
     </header>
     <div class="container">
-        <h1>PARFUM HOMME</h1>
+        <h1>PARFUM FEMME</h1>
         <div id="parfumGrid" class="parfum-grid">
             <!-- Les éléments de parfums seront insérés ici par JavaScript -->
         </div>
@@ -210,40 +225,43 @@
     <script>
         // Données des parfums
         const parfums = [
-            { id: 1,name: "Sauvage - Eau de parfum 100ml", img1: "images/homme/Sauvage.webp", img2: "images/homme/Sauvage1.webp",oldPrice: "1,199.00 Dh", newPrice: "499.00 Dh"  },
-            { id: 2,name: "BLEU DE CHANEL Eau De Parfum 100ML", img1: "images/homme/bleu-de-chanel.webp", img2: "images/homme/bleu-chanel.webp" ,oldPrice: "899.00 Dh", newPrice: "499.00 Dh" },
-            { id: 3,name: "VERSACE Eros Eau de parfum", img1: "images/homme/Versace Eros.webp", img2: "images/homme/Versace Eros 1.webp" ,oldPrice: "1,300.00 Dh", newPrice: "499.00 Dh" },
-            { id: 4,name: "The One For Men Intense - Eau de Parfum", img1: "images/homme/The One For Men Intense.webp", img2: "images/homme/The One For Men Intense1.webp" ,oldPrice: "1,855.00 Dh", newPrice: "549.00 Dh" },
-            { id: 5,name: "TOM FORD TOBACCO OUD Eau De Parfum 100ml", img1: "images/homme/Oud Wood.webp", img2: "images/homme/Oud Wood1.webp" ,oldPrice: "2,930.00 Dh", newPrice: "499.00 Dh" },
-            { id: 6,name: "ARMANI Acqua Di Gio Absolu - Eau de Parfum 100ML", img1: "images/homme/ARMANI Acqua Di Gio Absolu.webp", img2: "images/homme/ARMANI Acqua Di Gio Absolu1.webp" ,oldPrice: "835.00 Dh", newPrice: "499.00 Dh" },
-            { id: 7,name: "DIOR Parfum Fahrenheit - Eau de Parfum 75ML", img1: "images/homme/DIOR Parfum Fahrenheit.webp", img2: "images/homme/DIOR Parfum Fahrenheit1.webp" ,oldPrice: "1,200.00 Dh", newPrice: "549.00 Dh" },
-            { id: 8,name: "PACO RABANNE Pure XS", img1: "images/homme/PACO RABANNE Pure XS.webp", img2: "images/homme/PACO RABANNE Pure XS1.webp" ,oldPrice: "940.00 Dh", newPrice: "499.00 Dh" },
-            { id: 9,name: "TOM FORD Black Orchid - Eau De Parfum 100ML", img1: "images/homme/TOM FORD Black Orchid.webp", img2: "images/homme/TOM FORD Black Orchid1.webp" ,oldPrice: "1,890.00 Dh", newPrice: "549.00 Dh" },
-            { id: 10,name: "Dolce & Gabbana Light Blue Sun Pour Homme Edt 125 Ml", img1: "images/homme/DOLCE & GABBANA LIGHT BLUE EAU.webp", img2: "images/homme/DOLCE & GABBANA LIGHT BLUE EAU1.webp" ,oldPrice: "1,890.00 Dh", newPrice: "499.00 Dh" },
-            { id: 11,name: "DIOR Homme - 100ML", img1: "images/homme/DIOR Homme.webp", img2: "images/homme/DIOR Homme1.webp" ,oldPrice: "893.00 DH", newPrice: "499.00 DH" },
-            { id: 12,name: "CHANEL ALLURE HOMME SPORT 100ML", img1: "images/homme/CHANEL-ALLURE-HOMME.webp", img2: "images/homme/CHANEL_ALLURE_HOMME_SPORT.webp" ,oldPrice: "895.00 DH", newPrice: "499.00 DH" },
-            { id: 13,name: "Armani Code - Parfum", img1: "images/homme/ARMANI-CODE.webp", img2: "images/homme/ARMANI-CODE1.webp" ,oldPrice: "1,299.00 DH", newPrice: "549.00 DH" },
-            { id: 14,name: "HERMÈS Terre d'Hermès - 100ML", img1: "images/homme/HERMES TERRE D'HERMES.webp", img2: "images/homme/HERMES TERRE D'HERMES1.webp" ,oldPrice: "965.00 DH", newPrice: "549.00 DH" },
-            { id: 15,name: "GUERLAINL'HOMME IDEAL EAU DE PARFUM 100ML", img1: "images/homme/GUERLAINL'HOMME1.webp", img2: "images/homme/GUERLAINL'HOMME.webp" ,oldPrice: "900.00 DH", newPrice: "549.00 DH" },
-            { id: 16,name: "Phantom - Eau de Toilette", img1: "images/homme/PHANTOM.webp", img2: "images/homme/PHANTOM1.webp" ,oldPrice: "799.00 DH", newPrice: "549.00 DH" },
-            { id: 17,name: "K - Eau de Toilette 100ml", img1: "images/homme/K.webp", img2: "images/homme/K1.webp" ,oldPrice: "1,378.00 DH", newPrice: "499.00 DH" },
-            { id: 18,name: "TOM FORD Ombre Leather - Eau de Parfum 100ML", img1: "images/homme/TOM FORD OMBRE LEATHER.webp", img2: "images/homme/TOM FORD OMBRE LEATHER1.jpg" ,oldPrice: "1,599.00 DH", newPrice: "549.00 DH" },
-            { id: 19,name: "ARMANI Stronger With You - 100ML", img1: "images/homme/ARMANI.webp", img2: "images/homme/ARMANI1.jpg" ,oldPrice: "1,895.00 DH", newPrice: "799.00 DH" },
-            { id: 20,name: "Bois du Portugal Creed 120Ml", img1: "images/homme/Bois du Portugal.webp", img2: "images/homme/Bois du Portugal1.webp" ,oldPrice: "3,928.00 DH", newPrice: "549.00 DH" },
-            { id: 21,name: "Oud Wood - Eau de Parfum 100ml", img1: "images/homme/Oud Wood.webp", img2: "images/homme/Oud Wood1.webp" ,oldPrice: "2,100.00 DH", newPrice: "549.00 DH" },
-            { id: 22,name: "Le Male Le Parfum Intense 125ml", img1: "images/homme/LE MALE AVIATOR.webp", img2: "images/homme/LE MALE AVIATOR1.webp" ,oldPrice: "938.00 DH", newPrice: "899.00 DH" },
-            { id: 23,name: "FAHRENHEIT EAU DE PARFUM 100ml", img1: "images/homme/FAHRENHEIT.webp", img2: "images/homme/FAHRENHEIT1.webp" ,oldPrice: "918.00 DH", newPrice: "499.00 DH" },
-            { id: 24,name: "LACOSTEL.12.12 Blanc - Eau de Parfum", img1: "images/homme/LACOSTEL.12.12 Blanc.webp", img2: "images/homme/LACOSTEL.12.12 Blanc 1.webp" ,oldPrice: "726.00 DH", newPrice: "499.00 DH" },
-            { id: 25,name: "DIOR Homme Sport 100ML", img1: "images/homme/DIOR Homme Sport.webp", img2: "images/homme/DIOR Homme Sport1.webp" ,oldPrice: "1,755.00 DH", newPrice: "439.00 DH" },
-            { id: 26,name: "DOLCE & GABBANA The One For Men 100ML", img1: "images/homme/DOLCE & GABBANA The One For Men.webp", img2: "images/homme/DOLCE & GABBANA The One For Men1.webp" ,oldPrice: "1,600.00 DH", newPrice: "549.00 DH" },
-            { id: 27,name: "HUGO BOSS The Scent - 100ML", img1: "images/homme/HUGO BOSS The Scent.webp", img2: "images/homme/HUGO BOSS The Scent 1.webp" ,oldPrice: "985.00 DH", newPrice: "549.00 DH" },
-            { id: 28,name: "Y - Eau de Toilette", img1: "images/homme/Y.webp", img2: "images/homme/Y1.webp" ,oldPrice: "1,060.00 DH", newPrice: "549.00 DH" },
-            { id: 29,name: "Armani Code Eau de Parfum", img1: "images/homme/Armani Code Eau de Parfum.webp", img2: "images/homme/Armani Code Eau de Parfum1.webp" ,oldPrice: "1,300.00 DH", newPrice: "499.00 DH" },
-            { id: 30,name: "Aventus Creed cologne 120ML", img1: "images/homme/Aventus Creed cologne.webp", img2: "images/homme/Aventus Creed cologne1.webp" ,oldPrice: "755.00 DH", newPrice: "599.00 DH" },
-            { id: 31,name: "YVES SAINT LAURENT La Nuit de L'Homme Eau de Toilette 100ML", img1: "images/homme/YVES SAINT LAURENT La Nuit de L'Homme.webp", img2: "images/homme/YVES SAINT LAURENT La Nuit de L'Homme1.webp" ,oldPrice: "895.00 DH", newPrice: "499.00 DH" },
-            { id: 32,name: "BLEU DE CHANEL Eau De Parfum 100ML", img1: "images/homme/bleu-chanel1.webp", img2: "images/homme/P1922003_4.webp" ,oldPrice: "899.00 Dh", newPrice: "499.00 Dh" },
-            ]
-
+            { id: 1,name: "YVES SAINT LAURENT Libre - Eau de Parfum 90ML", img1: "images/femme/YVES SAINT LAURENT Libre.webp", img2: "images/femme/YVES SAINT LAURENT Libre1.webp",oldPrice: "734.00 Dh", newPrice: "549.00 Dh"  },
+            { id: 2,name: "CHANEL COCO MADEMOISELLE Eau De Parfum 100ML", img1: "images/femme/CHANEL COCO MADEMOISELLE.webp", img2: "images/femme/CHANEL COCO MADEMOISELLE1.webp" ,oldPrice: "864.00 Dh", newPrice: "499.00 Dh" },
+            { id: 3,name: "DIOR Miss Dior - Eau de Parfum 100ML", img1: "images/femme/DIOR Miss Dior.webp", img2: "images/femme/DIOR Miss Dior1.webp" ,oldPrice: "642.00 Dh", newPrice: "499.00 Dh" },
+            { id: 4,name: "JEAN PAUL GAULTIER So Scandal ! - Eau de Parfum 80ML", img1: "images/femme/JEAN PAUL GAULTIER So Scandal.webp", img2: "images/femme/JEAN PAUL GAULTIER So Scandal 1.webp" ,oldPrice: "786.00 Dh", newPrice: "549.00 Dh" },
+            { id: 5,name: "LA PETITE ROBE NOIRE 100ML", img1: "images/femme/LA PETITE ROBE NOIRE.webp", img2: "images/femme/LA PETITE ROBE NOIRE1.webp" ,oldPrice: "1,100.00 Dh", newPrice: "499.00 Dh" },
+            { id: 6,name: "ARMANI SI PASSIONE - Eau de Parfum 100ML", img1: "images/femme/ARMANI SI PASSIONE.webp", img2: "images/femme/ARMANI SI PASSIONE1.webp" ,oldPrice: "982.00 Dh", newPrice: "499.00 Dh" },
+            { id: 7,name: "DIOR J'adore - Eau de parfum 100ML", img1: "images/femme/DIOR J'adore.webp", img2: "images/femme/DIOR J'adore1.webp" ,oldPrice: "1,274.00 Dh", newPrice: "549.00 Dh" },
+            { id: 8,name: "LANCÔME Idôle - Eau de Parfum 75ML", img1: "images/femme/LANCÔME Idôle.webp", img2: "images/femme/LANCÔME Idôle1.webp" ,oldPrice: "864.00 Dh", newPrice: "499.00 Dh" },
+            { id: 9,name: "BACCARAT ROUGE 540", img1: "images/femme/BACCARAT ROUGE 540.webp", img2: "images/femme/BACCARAT ROUGE 540-1.webp" ,oldPrice: "2,400.00 Dh", newPrice: "549.00 Dh" },
+            { id: 10,name: "GUCCI Bloom - Eau de Parfum 100ML", img1: "images/femme/GUCCI Bloom.webp", img2: "images/femme/GUCCI Bloom1.webp" ,oldPrice: "786.00 Dh", newPrice: "499.00 Dh" },
+            { id: 11,name: "Crystal Noir - Eau de Parfum", img1: "images/femme/Crystal Noir.webp", img2: "images/femme/Crystal Noir1.webp" ,oldPrice: "1,283.00 DH", newPrice: "549.00 DH" },
+            { id: 12,name: "YVES SAINT LAURENT Black Opium - Eau de Parfum 90ML", img1: "images/femme/YVES SAINT LAURENT Black Opium.webp", img2: "images/femme/YVES SAINT LAURENT Black Opium1.webp" ,oldPrice: "863.00 DH", newPrice: "499.00 DH" },
+            { id: 13,name: "LANCÔME La vie est belle - Eau de Parfum 75ML", img1: "images/femme/LANCÔME La vie est belle.webp", img2: "images/femme/LANCÔME La vie est belle1.webp" ,oldPrice: "1,010.00 Dh", newPrice: "499.00 Dh"  },
+            { id: 14,name: "CAROLINA HERRERA Good Girl - Eau de parfum 80ML", img1: "images/femme/CAROLINA HERRERA Good Girl.webp", img2: "images/femme/CAROLINA HERRERA Good Girl1.webp" ,oldPrice: "1,010.00 Dh", newPrice: "499.00 Dh" },
+            { id: 15,name: "For Her Fleur Musc Eau de Parfum 100Ml", img1: "images/femme/For Her Fleur Musc.webp", img2: "images/femme/For Her Fleur Musc 1.webp" ,oldPrice: "1,829.00 Dh", newPrice: "699.00 Dh" },
+            { id: 16,name: "PACO RABANNE Olympéa - Eau de Parfum 80ML", img1: "images/femme/PACO RABANNE Olympéa.webp", img2: "images/femme/PACO RABANNE Olympéa1.webp" ,oldPrice: "1,090.00 Dh", newPrice: "459.00 Dh" },
+            { id: 17,name: "HYPNOTIC POISON EAU DE PARFUM", img1: "images/femme/HYPNOTIC POISON.webp", img2: "images/femme/HYPNOTIC POISON1.webp" ,oldPrice: "1,399.00 Dh", newPrice: "599.00 Dh" },
+            { id: 18,name: "BOSS THE SCENT FOR HER EAU DE PARFUM 100ML", img1: "images/femme/BOSS THE SCENT FOR HER.webp", img2: "images/femme/BOSS THE SCENT FOR HER1.webp" ,oldPrice: "1,990.00 Dh", newPrice: "499.00 Dh" },
+            { id: 19,name: "DOLCE & GABBANA The One - Eau de Parfum 75ML", img1: "images/femme/DOLCE & GABBANA The One.webp", img2: "images/femme/DOLCE & GABBANA The One1.webp" ,oldPrice: "1,367.00 Dh", newPrice: "549.00 Dh" },
+            { id: 20,name: "TOMFORD Bitter Peach eau de parfum 100ml", img1: "images/femme/TOMFORD Bitter Peach.webp", img2: "images/femme/TOMFORD Bitter Peach1.webp" ,oldPrice: "2,859.00 Dh", newPrice: "649.00 Dh" },
+            { id: 21,name: "BECAUSE IT'S YOU 100ML", img1: "images/femme/BECAUSE IT'S YOU.webp", img2: "images/femme/BECAUSE IT'S YOU1.webp" ,oldPrice: "1,100.00 Dh", newPrice: "449.00 Dh" },
+            { id: 22,name: "DIOR JOY de Dior - Eau de parfum 90ML", img1: "images/femme/DIOR JOY de Dior.webp", img2: "images/femme/DIOR JOY de Dior1.webp" ,oldPrice: "898.00 Dh", newPrice: "449.00 Dh" },
+            { id: 23,name: "Dolce & Gabbana Intense Eau de Parfum pour Femme 50ml", img1: "images/femme/Dolce & Gabbana Intense.webp", img2: "images/femme/Dolce & Gabbana Intense1.webp" ,oldPrice: "1,200.00 Dh", newPrice: "549.00 Dh" },
+            { id: 24,name: "GIVENCHY L'Interdit - Eau de Parfum 80ML", img1: "images/femme/GIVENCHY L'Interdit.webp", img2: "images/femme/GIVENCHY L'Interdit1.webp" ,oldPrice: "1,200.00 Dh", newPrice: "599.00 Dh" },
+            { id: 25,name: "LUCKY", img1: "images/femme/LUCKY.webp", img2: "images/femme/LUCKY1.webp" ,oldPrice: "2,983.00 Dh", newPrice: "549.00 Dh" },
+            { id: 26,name: "ARMANI My Way - Eau de Parfum 90ML", img1: "images/femme/ARMANI My Way.webp", img2: "images/femme/ARMANI My Way1.webp" ,oldPrice: "986.00 Dh", newPrice: "549.00 Dh" },
+            { id: 27,name: "GABRIELLE CHANEL 100ml", img1: "images/femme/GABRIELLE CHANEL.webp", img2: "images/femme/GABRIELLE CHANEL 1.webp" ,oldPrice: "2,689.00 Dh", newPrice: "499.00 Dh" },
+            { id: 28,name: "GUCCI Bloom Ambrosia Di Fiori Eau De Parfum Intense", img1: "images/femme/GUCCI Bloom Ambrosia Di Fiori.webp", img2: "images/femme/GUCCI Bloom Ambrosia Di Fiori1.webp" ,oldPrice: "1,265.00 Dh", newPrice: "499.00 Dh" },
+            { id: 29,name: "GUCCI Bloom - Eau de Toilette 100ML", img1: "images/femme/GUCCI Bloomm.webp", img2: "images/femme/GUCCI Bloomm1.webp" ,oldPrice: "853.00 Dh", newPrice: "499.00 Dh" },
+            { id: 30,name: "VERSACE Dylan Blue Femme", img1: "images/femme/VERSACE Dylan Blue Femme.webp", img2: "images/femme/VERSACE Dylan Blue Femme1.webp" ,oldPrice: "928.00 Dh", newPrice: "499.00 Dh" },
+            { id: 31,name: "Rose Prick - Eau de Parfum", img1: "images/femme/Rose Prick.webp", img2: "images/femme/Rose Prick1.webp" ,oldPrice: "1,456.00 Dh", newPrice: "549.00 Dh" },
+            { id: 32,name: "YVES SAINT LAURENT CINÉMA Eau de Parfum", img1: "images/femme/cinema_edp_f_1024x1024_2x_4e5ca53d-f0eb-4dd2-9026-9792eebfc454.jpg", img2: "images/femme/cinema_edp_p_1024x1024_2x_7bb2fd58-a1b3-483e-8885-073a12ce69a2.webp" ,oldPrice: "1,298.00 Dh", newPrice: "449.00 Dh" },
+            { id: 33,name: "Gucci Mémoire D'une Odeur, 100ml Eau De Parfum", img1: "images/femme/Gucci Mémoire D'une Odeur.webp", img2: "images/femme/Gucci Mémoire D'une Odeur1.webp" ,oldPrice: "1,265.00 Dh", newPrice: "599.00 Dh" },
+            { id: 34,name: "My Burberry Black - Parfum", img1: "images/femme/My Burberry Black.webp", img2: "images/femme/My Burberry Black1.webp" ,oldPrice: "1,338.00 Dh", newPrice: "599.00 Dh" },
+            { id: 35,name: "YVES SAINT LAURENT Mon Paris - Eau de Parfum 90ML", img1: "images/femme/YVES SAINT LAURENT Mon Paris.webp", img2: "images/femme/YVES SAINT LAURENT Mon Paris 1.webp" ,oldPrice: "789.00 Dh", newPrice: "499.00 Dh" }
+        ];
+        
         const itemsPerPage = 12;
         let currentPage = 1;
 
@@ -300,7 +318,7 @@
         renderPagination();
         
         function addToFavorites(index) {
-            const parfum = parfums[index];
+            const parfum = parfums[index]; 
             // Préparer les données
             const formData = new FormData();
             formData.append("id", parfum.id); // ID unique
@@ -308,19 +326,19 @@
             formData.append("category", "Parfum Homme"); // Catégorie
             formData.append("price", parfum.newPrice); // Prix
             formData.append("img1", parfum.img1); // Image principale
-            // Envoi des données au serveur
+           // Envoi des données au serveur
             fetch("add_to_favorites.php", {
                method: "POST",
                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
+    })
+           .then(response => response.json())
+           .then(data => {
             if (data.success) {
-                console.log("Produit ajouté aux favoris !");
+               console.log("Produit ajouté aux favoris !");
             } else {
-                alert(data.message); // Message renvoyé par le serveur
+               alert(data.message); // Message renvoyé par le serveur
             }
-})
+    })
 }
         function addToCart(productIndex) {
             const product = parfums[productIndex]; // Récupérer le produit par index
@@ -331,13 +349,12 @@
             } else {
                 cart.push({ ...product, quantity: 1 });
             }
-
             localStorage.setItem("cart", JSON.stringify(cart)); // Sauvegarder le panier dans localStorage
             alert("Produit ajouté au panier !");
         }
         // Afficher les produits au chargement de la page
         displayProducts();
-</script>
+    </script>
     <script src="scriptrecherche.js"></script>
     <?php
 include('page_connexion.php');
